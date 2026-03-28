@@ -29,6 +29,8 @@ final class ScaferaFrontendBundle extends AbstractBundle
 
         $container->services()
             ->set(Validator\TwigLeakageValidator::class)
+                ->tag('scafera.validator')
+            ->set(Validator\TemplatesDirectoryValidator::class)
                 ->tag('scafera.validator');
     }
 }
