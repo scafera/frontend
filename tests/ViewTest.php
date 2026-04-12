@@ -12,7 +12,7 @@ class ViewTest extends TestCase
 {
     public function testRenderDelegatesToTwigAndReturnsString(): void
     {
-        $twig = $this->createMock(Environment::class);
+        $twig = $this->createStub(Environment::class);
         $twig->method('render')
             ->with('order/show.html.twig', ['id' => 42])
             ->willReturn('<h1>Order #42</h1>');
