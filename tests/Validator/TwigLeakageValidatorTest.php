@@ -69,6 +69,20 @@ class TwigLeakageValidatorTest extends TestCase
         $this->assertStringContainsString('CustomExtension.php', $violations[0]);
     }
 
+    public function testFailsWhenTwigGroupedImportUsed(): void
+    {
+        file_put_contents($this->tmpDir . '/src/GroupedImport.php', <<<'PHP'
+        <?php
+        namespace App\Service;
+        use Twig\{Environment, Loader\ArrayLoader};
+        class GroupedImport {}
+        PHP);
+
+        $violations = $this->validator->validate($this->tmpDir);
+        $this->assertCount(1, $violations);
+        $this->assertStringContainsString('GroupedImport.php', $violations[0]);
+    }
+
     public function testPassesWhenNoSrcDir(): void
     {
         $emptyDir = sys_get_temp_dir() . '/scafera_empty_' . uniqid();

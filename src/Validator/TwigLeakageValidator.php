@@ -27,7 +27,7 @@ final class TwigLeakageValidator implements ValidatorInterface
             $contents = file_get_contents($file);
             $relative = 'src/' . str_replace($srcDir . '/', '', $file);
 
-            if (preg_match('/^use\s+Twig\\\\/m', $contents)) {
+            if (preg_match('/^use\s+Twig\\\\[{A-Z]/m', $contents)) {
                 $violations[] = $relative . ': imports Twig types directly — use Scafera\Kernel\Contract\ViewInterface instead';
             }
         }
