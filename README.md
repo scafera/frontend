@@ -1,12 +1,12 @@
-# Scafera Frontend
+# scafera/frontend
 
 Template rendering for the Scafera framework. Wraps a template engine internally — your code never touches it directly.
 
-## What is this?
+This is a **capability package**. It adds optional template rendering to a Scafera project. It does not define folder structure or architectural rules — those belong to architecture packages.
+
+## Core Idea
 
 Scafera Frontend provides a `ViewInterface` implementation that renders templates and returns plain strings. The template engine (currently Twig) is strictly internal — user code depends only on the kernel contract.
-
-This is a **capability package**. It adds optional functionality to a Scafera project. It does not define folder structure, service wiring, or architectural rules — those belong to architecture packages.
 
 ## Requirements
 
@@ -19,7 +19,7 @@ This is a **capability package**. It adds optional functionality to a Scafera pr
 composer require scafera/frontend
 ```
 
-> Most users won't install this directly. Instead, install a meta-package like `scafera/web-layered`, which pulls in the frontend along with architecture conventions.
+> Most users won't install this directly. Instead, install a meta-package like `scafera/layered-web`, which pulls in the frontend along with architecture conventions.
 
 ## How it works
 
