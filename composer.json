@@ -3,9 +3,15 @@
     "description": "Template rendering for the Scafera framework",
     "type": "symfony-bundle",
     "license": "MIT",
+    "keywords": ["scafera", "templates", "frontend", "php"],
+    "homepage": "https://github.com/scafera/frontend",
+    "support": {
+        "issues": "https://github.com/scafera/frontend/issues",
+        "source": "https://github.com/scafera/frontend"
+    },
     "require": {
         "php": ">=8.4",
-        "scafera/kernel": "^1.0 || dev-main",
+        "scafera/kernel": "^1.0",
         "symfony/twig-bundle": "^8.0"
     },
     "require-dev": {
