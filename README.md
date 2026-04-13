@@ -90,7 +90,7 @@ User code should type-hint `ViewInterface`, never `View` directly.
 ## What this package does NOT own
 
 - **Form rendering** — future `scafera/forms`
-- **Asset management** — future `scafera/assets`
+- **Asset management** — owned by `scafera/asset`
 - **Twig extensions for userland** — not supported (ADR-030)
 - **View composers / shared template data** — inject services explicitly
 - **Layout helpers** — use Twig's native `{% extends %}` and `{% block %}`
