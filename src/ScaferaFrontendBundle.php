@@ -14,7 +14,7 @@ final class ScaferaFrontendBundle extends AbstractBundle
     public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void
     {
         $builder->prependExtensionConfig('twig', [
-            'default_path' => '%kernel.project_dir%/templates',
+            'default_path' => '%kernel.project_dir%/resources/templates',
         ]);
     }
 

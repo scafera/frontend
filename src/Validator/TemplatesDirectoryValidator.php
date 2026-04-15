@@ -15,10 +15,10 @@ final class TemplatesDirectoryValidator implements ValidatorInterface
 
     public function validate(string $projectDir): array
     {
-        if (is_dir($projectDir . '/templates')) {
+        if (is_dir($projectDir . '/resources/templates')) {
             return [];
         }
 
-        return ['scafera/frontend is installed but templates/ directory does not exist. Create it or remove the package.'];
+        return ['scafera/frontend is installed but resources/templates/ directory does not exist. Create it or remove the package.'];
     }
 }
