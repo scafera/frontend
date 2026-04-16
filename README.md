@@ -2,11 +2,15 @@
 
 Template rendering for the Scafera framework. Wraps a template engine internally — your code never touches it directly.
 
+> **Provides:** Template rendering for Scafera — implements kernel's `ViewInterface` with a Twig-backed `render(string $template, array $context): string` that returns plain strings. Templates live in `templates/` at the project root. Controllers inject `ViewInterface`, never Twig directly.
+>
+> **Depends on:** A Scafera host project with a `templates/` directory at its root. Most users install `scafera/layered-web` (the meta-package) rather than requiring this directly.
+>
+> **Extension points:** None of its own — the package is a pure implementation of kernel's `ViewInterface`. New templates are picked up by dropping `.html.twig` files into `templates/`. Twig extensions for userland are explicitly not supported (ADR-030) — inject services and call their methods from controllers instead.
+>
+> **Not responsible for:** Form rendering (owned by `scafera/form`) · asset management (owned by `scafera/asset`) · Twig extensions for userland (ADR-030) · view composers / shared template data (inject services explicitly in controllers) · layout helpers (use Twig's native `{% extends %}` / `{% block %}`) · direct use of `Twig\*` types in userland (blocked by `TwigLeakageValidator`).
+
 This is a **capability package**. It adds optional template rendering to a Scafera project. It does not define folder structure or architectural rules — those belong to architecture packages.
-
-## Core Idea
-
-Scafera Frontend provides a `ViewInterface` implementation that renders templates and returns plain strings. The template engine (currently Twig) is strictly internal — user code depends only on the kernel contract.
 
 ## Requirements
 
@@ -86,14 +90,6 @@ Package checks:
 | Implementation | `Scafera\Frontend\View` | Twig-backed implementation (internal) |
 
 User code should type-hint `ViewInterface`, never `View` directly.
-
-## What this package does NOT own
-
-- **Form rendering** — future `scafera/forms`
-- **Asset management** — owned by `scafera/asset`
-- **Twig extensions for userland** — not supported (ADR-030)
-- **View composers / shared template data** — inject services explicitly
-- **Layout helpers** — use Twig's native `{% extends %}` and `{% block %}`
 
 ## License
 
