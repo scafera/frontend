@@ -9,6 +9,11 @@ use Scafera\Kernel\Tool\FileFinder;
 
 final class TwigLeakageValidator implements ValidatorInterface
 {
+    public function getId(): string
+    {
+        return 'frontend.twig-leakage';
+    }
+
     public function getName(): string
     {
         return 'No Twig imports in userland';

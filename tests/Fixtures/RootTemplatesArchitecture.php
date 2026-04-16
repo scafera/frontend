@@ -19,6 +19,7 @@ final class RootTemplatesArchitecture implements ArchitecturePackageInterface
     public function getValidators(): array { return []; }
     public function getGenerators(): array { return []; }
     public function getAdvisors(): array { return []; }
+    public function getIgnoredRules(): array { return []; }
     public function getEntityMapping(): ?array { return null; }
     public function getTranslationsDir(): ?string { return null; }
     public function getStorageDir(): ?string { return null; }

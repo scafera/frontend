@@ -9,6 +9,11 @@ use Scafera\Kernel\InstalledPackages;
 
 final class TemplateLocationValidator implements ValidatorInterface
 {
+    public function getId(): string
+    {
+        return 'frontend.template-location';
+    }
+
     public function getName(): string
     {
         return 'Template location';

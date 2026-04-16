@@ -9,6 +9,11 @@ use Scafera\Kernel\InstalledPackages;
 
 final class TemplatesDirectoryValidator implements ValidatorInterface
 {
+    public function getId(): string
+    {
+        return 'frontend.templates-directory';
+    }
+
     public function getName(): string
     {
         return 'Templates directory';
