@@ -16,11 +16,6 @@ final class TemplateLocationValidator implements ValidatorInterface
 
     public function validate(string $projectDir): array
     {
-        $resourcesDir = $projectDir . '/resources';
-        if (!is_dir($resourcesDir)) {
-            return [];
-        }
-
         $architecture = InstalledPackages::resolveArchitecture($projectDir);
         $templatesDir = $architecture?->getTemplatesDir();
 
@@ -29,10 +24,30 @@ final class TemplateLocationValidator implements ValidatorInterface
         }
 
         $templatesPrefix = rtrim($templatesDir, '/') . '/';
+
+        // Scan ONE level above the templates dir so stray .twig files in
+        // sibling folders are caught (e.g. for templatesDir='resources/templates',
+        // scan 'resources/' — catches 'resources/stray.twig' and 'resources/emails/x.twig').
+        //
+        // Deliberate trade-off: strays more than one level outside the templates
+        // parent (e.g. 'app/foo.twig' when templatesDir='app/views/twig') are not
+        // scanned. Walking the whole project is too expensive for this check.
+        //
+        // Degenerate case: when templatesDir is at project root (e.g. 'templates/'),
+        // there is no "upper" level to scan — fall back to scanning only the
+        // templates dir itself.
+        $parent = dirname($templatesDir);
+        $scanRelative = ($parent === '.' || $parent === '') ? rtrim($templatesDir, '/') : rtrim($parent, '/');
+        $scanRoot = $projectDir . '/' . $scanRelative;
+
+        if (!is_dir($scanRoot)) {
+            return [];
+        }
+
         $violations = [];
 
         $iterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($resourcesDir, \FilesystemIterator::SKIP_DOTS),
+            new \RecursiveDirectoryIterator($scanRoot, \FilesystemIterator::SKIP_DOTS),
         );
 
         foreach ($iterator as $file) {
